@@ -7,4 +7,3 @@ In that game you have to gain as many points as you can. You can gain points fro
 gra.py-script only to play game<br/>
 grys.py-script to create images,train models,play game<br/>
 zdj - contains necessary files<br/>
-gra.rar- compiled game(run gra.exe)<br/>
