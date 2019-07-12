@@ -44,7 +44,7 @@ def tloo(tlo):
 		for j in range(random.randint(0,5),80,5):
 			koloruj(i,j,tlo)
 	
-def start():
+def start():						#main function
 	os.chdir('zdj')
 	thr=[]
 	gracz=[500,400,pygame.Rect(500,400,40,70),0,True]
@@ -64,8 +64,7 @@ def start():
 	while score[0]!=-1:
 		time.sleep(1)
 	
-def rozpoznawanie(klocki, score,image,timeee):
-	#os.chdir('C:\\Users\\michalrz\\Desktop\\zdj\\models\\zdj')
+def rozpoznawanie(klocki, score,image,timeee):		#recognition function
 	x=tf.placeholder(tf.float32,[None,4096])
 	y=tf.placeholder(tf.float32,[None, 6])
 	im=tf.reshape(x,[-1,64,64,1])
@@ -127,7 +126,7 @@ def rozpoznawanie(klocki, score,image,timeee):
 		time.sleep(0.0025)
 	
 
-def gra(klocki,gracz,score,thr,thrr,image,timeee):
+def gra(klocki,gracz,score,thr,thrr,image,timeee):	#function drawing game
 	
 	pygame.init()
 	pygame.font.init()
@@ -218,7 +217,7 @@ def gra(klocki,gracz,score,thr,thrr,image,timeee):
 		pygame.display.flip()
 		clock.tick(60)
 		
-def ruch(klocki,gracz,score,timeee):
+def ruch(klocki,gracz,score,timeee):			#function moving player
 	while score[0]==-1:
 		time.sleep(0.25)
 	tim=time.time()
