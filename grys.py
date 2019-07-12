@@ -57,8 +57,8 @@ def tloo(tlo):
 		for j in range(random.randint(0,5),80,5):
 			koloruj(i,j,tlo)
 	
-def start():
-	os.chdir('C:\\Users\\michalrz\\Desktop\\zdj\\models\\zdj')
+def start():							#main function
+	os.chdir('zdj')
 	thr=[]
 	gracz=[500,400,pygame.Rect(500,400,40,70),0,True]
 	score=[-1]
@@ -74,7 +74,6 @@ def start():
 	thr[0].start()
 	
 def rozpoznawanie(klocki, score,image,timeee):
-	#os.chdir('C:\\Users\\michalrz\\Desktop\\zdj\\models\\zdj')
 	x=tf.placeholder(tf.float32,[None,4096])
 	y=tf.placeholder(tf.float32,[None, 6])
 	im=tf.reshape(x,[-1,64,64,1])
@@ -137,34 +136,11 @@ def rozpoznawanie(klocki, score,image,timeee):
 	
 
 def gra(klocki,gracz,score,thr,thrr,image,timeee):
-	#os.chdir('C:\\Users\\michalrz\\Desktop\\zdj\\models\\zdj')
-	
-	'''x=tf.placeholder(tf.float32,[None,4096])
-	y=tf.placeholder(tf.float32,[None, 6])
-	im=tf.reshape(x,[-1,64,64,1])
-	c1=tf.layers.conv2d(im,16,2,1,'same',activation=tf.nn.relu)
-	p1=tf.layers.max_pooling2d(c1,2,2)
-	c2=tf.layers.conv2d(p1,64,2,1,'same',activation=tf.nn.relu)
-	p2=tf.layers.max_pooling2d(c2,2,2)
-	flat=tf.layers.flatten(p2)
-	l1=tf.layers.dense(flat, 128,tf.nn.relu)
-	out=tf.layers.dense(l1,6,tf.nn.sigmoid)
-	sess=tf.Session()
-	saver = tf.train.Saver()
-	saver.restore(sess, './grys')'''
-	#model
-	
 	pygame.init()
 	pygame.font.init()
 	window = pygame.display.set_mode((1000, 800))
 	pygame.display.set_caption(('Gra'))
 	clock = pygame.time.Clock()
-	#image=Image.new('1',(1000,800))
-	#imdraw=ImageDraw.Draw(image)
-	#okno
-	
-	#czy=True
-	#punkt=[0,0]
 	liczba=0
 	zdjj=[]
 	for i in range(6):
@@ -176,7 +152,6 @@ def gra(klocki,gracz,score,thr,thrr,image,timeee):
 					pp.putpixel((j,k),(0,0,0))
 				else:
 					pp.putpixel((j,k),(255,255,255))
-		#print(list(pp.getdata()))
 		zdjj.append(pygame.image.frombuffer(pp.tobytes(),(40,40),'RGB'))
 		zdjj[i].set_colorkey((0,0,0))
 	postacie=[]
@@ -184,14 +159,9 @@ def gra(klocki,gracz,score,thr,thrr,image,timeee):
 	postacie.append(pygame.image.load('wrog.jpg'))
 	timee=time.time()
 	ttt=time.time()
-	#deklaracja danych
-	
-	
-	
 	tlo=Image.new('RGB',(100,80),(random.randint(100,200),random.randint(100,200),random.randint(100,200)))
 	tloo(tlo)
 	font=pygame.font.Font(None,50)
-	#nowe
 	while score[0]==-1:
 		for event in pygame.event.get():
 			if event.type==pygame.QUIT:
@@ -210,75 +180,7 @@ def gra(klocki,gracz,score,thr,thrr,image,timeee):
 				thr.join()
 				thrr.join()
 				sys.exit(0)
-			'''if event.type == pygame.MOUSEBUTTONUP:
-				lista=list(image.crop(image.getbbox()).resize((64,64)).getdata())
-				for j in range(len(lista)):
-					if lista[j]==255:
-						lista[j]=1
-				ou=sess.run(out,{x:[lista]})
-				wynik=5
-				for i in range(5):
-					if ou[0][i]>ou[0][wynik]:
-						wynik=i
-				proc=0
-				for i in range(5):
-					proc+=ou[0][i]
-				proc/=5
-				if (ou[0][wynik]/proc)>0.7 and len(klocki)>0:
-					ii=0
-					while ii<len(klocki):
-						if klocki[ii][0]==wynik:
-							score[0]+=1
-							timeee-=0.005
-							klocki.remove(klocki[ii])
-						else:
-							ii+=1
-					
-				
-				image=Image.new('1',(1000,800))
-				imdraw=ImageDraw.Draw(image)
-				czy=True'''
-		'''if time.time()-tim[0]>=0.06:
-			tim[0]=time.time()
-			if pygame.key.get_pressed()[pygame.K_w]:
-				if pygame.key.get_pressed()[pygame.K_d]:
-					gracz[0]+=math.sqrt(2)*2
-					gracz[1]+=-math.sqrt(2)*2	
-				elif pygame.key.get_pressed()[pygame.K_a]:
-					gracz[0]+=-math.sqrt(2)*2
-					gracz[1]+=-math.sqrt(2)*2
-				else: gracz[1]+=-4
-				gracz[2].x=int(gracz[0])
-				gracz[2].y=int(gracz[1])
-		
-		
-			if pygame.key.get_pressed()[pygame.K_s]:
-				if pygame.key.get_pressed()[pygame.K_d]:
-					gracz[0]+=math.sqrt(2)*2
-					gracz[1]+=math.sqrt(2)*2
-				elif pygame.key.get_pressed()[pygame.K_a]:
-					gracz[0]+=-math.sqrt(2)*2
-					gracz[1]+=math.sqrt(2)*2
-				else: gracz[1]+=4
-				gracz[2].x=int(gracz[0])
-				gracz[2].y=int(gracz[1])
-			if pygame.key.get_pressed()[pygame.K_d] and not pygame.key.get_pressed()[pygame.K_w] and not pygame.key.get_pressed()[pygame.K_s]:
-				gracz[0]+=4
-				gracz[2].x=int(gracz[0])
-				gracz[2].y=int(gracz[1])
-			if pygame.key.get_pressed()[pygame.K_a] and not pygame.key.get_pressed()[pygame.K_w] and not pygame.key.get_pressed()[pygame.K_s]:
-				gracz[0]+=-4
-				gracz[2].x=int(gracz[0])
-				gracz[2].y=int(gracz[1])'''
-		'''if pygame.mouse.get_pressed()[0]:
-			pos = pygame.mouse.get_pos()
-			if czy:
-				czy=False
-				punkt[0]=pos[0]
-				punkt[1]=pos[1]
-			imdraw.line([(punkt[0],punkt[1]),(pos[0],pos[1])],1,5)
-			punkt[0]=pos[0]
-			punkt[1]=pos[1]'''
+			
 		if time.time()-timee>=timeee[0]:
 			if random.randint(0,1)==0:
 				if random.randint(0,1)==0:
@@ -293,24 +195,6 @@ def gra(klocki,gracz,score,thr,thrr,image,timeee):
 			klocki[-1][2]=klocki[-1][1].x
 			klocki[-1][3]=klocki[-1][1].y
 			timee=time.time()
-		'''if time.time()-tim[1]>=0.06:
-			tim[1]=time.time()
-			for i in range(len(klocki)):
-				kat=math.atan2(gracz[2].centery-klocki[i][1].centery,gracz[2].centerx-klocki[i][1].centerx)
-				klocki[i][2]+=math.cos(kat)*2
-				klocki[i][3]+=math.sin(kat)*2
-				klocki[i][1].x=int(klocki[i][2])
-				klocki[i][1].y=int(klocki[i][3])
-				if klocki[i][1].colliderect(gracz[2]):
-					print('Score: '+str(score))
-					score=0
-					gracz[0]=500
-					gracz[1]=400
-					gracz[2].x=int(gracz[0])
-					gracz[2].y=int(gracz[1])
-					klocki=[]
-					timeee=1
-					break'''
 				
 				
 		window.fill((0,0,0))
@@ -319,9 +203,7 @@ def gra(klocki,gracz,score,thr,thrr,image,timeee):
 		window.blit(pygame.image.frombuffer(tlo.resize((1000,800)).tobytes(),(1000,800),'RGB'),(0,0))
 		for i in range(len(klocki)-1,-1,-1):
 			try:
-				#pygame.draw.rect(window,(255,0,0),klocki[i][1])
 				temp=pygame.transform.rotate(postacie[1],klocki[i][4])
-				#print(temp.get_at((0,0)))
 				temp.set_colorkey((0,0,0))
 				window.blit(temp,klocki[i][1])
 				window.blit(zdjj[klocki[i][0]],(klocki[i][1].x,klocki[i][1].y-45))
@@ -329,9 +211,7 @@ def gra(klocki,gracz,score,thr,thrr,image,timeee):
 				break
 		obraz=pygame.image.frombuffer(image[0].convert('RGB').tobytes(),(1000,800),'RGB')
 		obraz.set_colorkey(0)
-		#pygame.draw.rect(window,(255,255,255),gracz)
 		temp=pygame.transform.rotate(postacie[0],gracz[3])
-		#print(temp.get_at((0,0)))
 		temp.set_colorkey((0,1,2))
 		
 		window.blit(temp,gracz[2])
@@ -436,7 +316,7 @@ def ruch(klocki,gracz,score,timeee):
 		time.sleep(0.001)	
 			
 def model(znak,liczba):
-	os.chdir('C:\\Users\\michalrz\\Desktop\\zdj\\models')
+	os.chdir('models')
 	pygame.init()
 	window = pygame.display.set_mode((1000, 800))
 	pygame.display.set_caption(('Modele'))
@@ -450,9 +330,6 @@ def model(znak,liczba):
 			if event.type==pygame.QUIT:
 				sys.exit(0)
 			if event.type == pygame.MOUSEBUTTONUP:
-				'''x=open('zdj\\'+str(znak)+str(liczba)+'.bmp','wb')
-				x.write(image.convert('RGB').tobytes())
-				x.close()'''
 				image=image.crop(image.getbbox()).resize((64,64))
 				image.save('zdj\\'+str(znak)+str(liczba)+'.jpeg')
 				x=open(str(znak)+str(liczba),'wb')
@@ -483,7 +360,7 @@ def model(znak,liczba):
 
 		
 def nauka(ilosc):
-	os.chdir('C:\\Users\\michalrz\\Desktop\\zdj\\models\\zdj')
+	os.chdir('zdj')
 	x=tf.placeholder(tf.float32,[None,4096])
 	y=tf.placeholder(tf.float32,[None, 6])
 	im=tf.reshape(x,[-1,64,64,1])
@@ -495,9 +372,7 @@ def nauka(ilosc):
 	l1=tf.layers.dense(flat, 128,tf.nn.relu)
 	out=tf.layers.dense(l1,6,tf.nn.sigmoid)
 	losss=tf.losses.mean_squared_error(y,out)
-	#losss=tf.nn.sparse_softmax_cross_entropy_with_logits(labels=y,logits=out)
 	tra=tf.train.AdamOptimizer(0.001).minimize(losss)
-	#tra=tf.train.GradientDescentOptimizer(0.5).minimize(losss)
 	sess=tf.Session()
 	saver = tf.train.Saver()
 	saver.restore(sess, './grys')
@@ -526,20 +401,8 @@ def nauka(ilosc):
 	nn=[]
 	wyniki=[]
 	testy=[]
-	'''for i in range(6):
-		nnn=[]
-		for j in range(6):
-			if i==j:
-				nnn.append(1.0)
-			else:
-				nnn.append(0.0)
-		nn.append(nnn)
-		nn.append(nnn.copy())'''
 	for k in range(ilosc):
 		n=[]
-		'''for i in range(6):
-			n.append(a[i][random.randint(0,len(a[i])-1)])
-			n.append(a[i][random.randint(0,len(a[i])-1)])'''
 		llll=random.randint(0,6)
 		nn=[[0.0,0.0,0.0,0.0,0.0,0.0]]
 		if llll<6:
@@ -568,14 +431,11 @@ def nauka(ilosc):
 	plt.plot(range(1,len(testy)+1),testy)
 	plt.ylabel('Testy')
 	plt.pause(0.001)
-	'''plt.cla()
-	plt.plot(wyniki)
-	plt.pause(0.0001)'''
 	os.chdir('zdj')
 	saver.save(sess, './grys', write_meta_graph=False)
 
 def test():
-	os.chdir('C:\\Users\\michalrz\\Desktop\\zdj\\models\\zdj')
+	os.chdir('zdj')
 	x=tf.placeholder(tf.float32,[None,4096])
 	y=tf.placeholder(tf.float32,[None, 6])
 	im=tf.reshape(x,[-1,64,64,1])
@@ -637,19 +497,3 @@ def test():
 		window.blit(pygame.image.frombuffer(image.convert('RGB').tobytes(),(1000,800),'RGB'),(0,0))
 		pygame.display.flip()
 		clock.tick(60)
-#if __name__ == "__main__":
-#	gra()
-	
-	
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
