@@ -1,2 +1,2 @@
 # Drawing-game
-demo.png
+![alt text](demo.png)
