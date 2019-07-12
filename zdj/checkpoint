@@ -1,0 +1,2 @@
+model_checkpoint_path: "grys"
+all_model_checkpoint_paths: "grys"
